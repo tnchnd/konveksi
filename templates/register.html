@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="Nauli Konveksi" />
+    <meta
+      property="og:description"
+      content="Low Prices and High Quality only here!"
+    />
+    <meta
+      property="og:image"
+      content="{{ url_for('static', filename='logo-website.png') }}"
+    />
+    <meta property="og:url" content="https://pet-shop-x.glitch.me/" />
+    <meta property="og:type" content="website" />
+    <link
+      rel="icon"
+      href="https://cdn.glitch.global/df037969-d8e5-485e-9d58-36e0200a9053/Cat-Logo.png?v=1702976630001"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <title>Register</title>
+    <script src="{{ url_for('static', filename='js.js') }}"></script>
+  </head>
+
+  <style>
+    body {
+      background-image: url("{{ url_for('static', filename='background.jpg') }}");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+    }
+    .whatsapp-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      z-index: 1000;
+    }
+
+    .whatsapp-button a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .whatsapp-button img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  </style>
+
+  <body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <img
+            src="{{ url_for('static', filename='logo-website.png') }}"
+            width="112"
+            height="108"
+            style="padding: 0"
+            alt="Logo"
+          />
+        </a>
+        <a
+          role="button"
+          class="navbar-burger burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbarBasicExample"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item" href="/"> Home </a>
+          <a class="navbar-item" href="/produk"> Product </a>
+        </div>
+        <div class="navbar-end">
+          {% if not logged_in %}
+          <div class="navbar-item">
+            <div class="buttons">
+              <a href="/signup" class="button is-primary">Sign Up</a>
+              <a href="/signin" class="button is-light">Login</a>
+            </div>
+          </div>
+          {% else %}
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              <span class="icon">
+                <i class="fa-solid fa-user"></i>
+              </span>
+              <span>Profile</span>
+            </a>
+            <div class="navbar-dropdown">
+              <a href="/profile" class="navbar-item">
+                <span class="icon">
+                  <i class="fas fa-user"></i>
+                </span>
+                <span>My Profile</span>
+              </a>
+              <a href="/riwayat-pesanan" class="navbar-item">
+                <span class="icon">
+                  <i class="fas fa-history"></i>
+                </span>
+                <span>History</span>
+              </a>
+              <a href="/keranjang" class="navbar-item">
+                <span class="icon">
+                  <i class="fas fa-shopping-cart"></i>
+                </span>
+                <span>Cart</span>
+              </a>
+              <hr class="navbar-divider" />
+              <a href="/logout" class="navbar-item">
+                <span class="icon">
+                  <i class="fas fa-sign-out-alt"></i>
+                </span>
+                <span>Logout</span>
+              </a>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <div class="columns is-centered">
+      <div class="column is-one-third" style="margin-top: 50px">
+        <form id="registerForm" action="/sign_up/save" method="POST">
+          <div class="column has-text-centered">
+            <h1 class="title is-4">Daftar Sekarang!</h1>
+
+            <div class="field">
+              <div class="control">
+                <input
+                  class="input is-medium is-input-reg"
+                  type="text"
+                  placeholder="Nama"
+                  id="name"
+                  name="name"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <input
+                  class="input is-medium is-input-reg"
+                  type="email"
+                  placeholder="Email"
+                  id="email"
+                  name="email"
+                  required
+                />
+              </div>
+              {% if error_message %}
+              <span class="help is-danger">{{ error_message }}</span>
+              {% endif %}
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <input
+                  class="input is-medium is-input-reg"
+                  type="password"
+                  placeholder="Password"
+                  id="password"
+                  name="password"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <input
+                  class="input is-medium is-input-reg"
+                  type="text"
+                  placeholder="Alamat"
+                  id="address"
+                  name="address"
+                  required
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="button is-block is-fullwidth is-medium is-primary"
+            >
+              Register
+            </button>
+            <br />
+            <small
+              ><em>Sudah punya akun? <a href="/signin"> Login</a></em></small
+            >
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="whatsapp-button">
+      <a href="https://wa.me/+6281375450780" target="_blank">
+        <img src="/static/Whatsapp.png" alt="WhatsApp" />
+      </a>
+    </div>
+  </body>
+</html>
